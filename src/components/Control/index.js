@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {withFirebase} from '../Firebase';
 
-import {Container, Col, Row, Button} from 'react-bootstrap';
+import {Container, Col, Row, Button, Card} from 'react-bootstrap';
 class ControlPage extends Component {
   constructor(props) {
     super(props);
@@ -25,39 +25,67 @@ class ControlPage extends Component {
   render() {
     const {fan, led, pump} = this.state;
     return(
-      <Container>
+      <Container className="p-4">
         <Row className="justify-content-center">
-          <Col lg={2} className="text-center">
-            <Button className={fan ? "btn-embers-3" : "btn-embers-1"}
+          <Col lg={4} className="text-center">
+            <Card>
+              <Card.Img src={process.env.PUBLIC_URL + "/fan.jpeg"} className="shadow-lg"/>
+              <Card.Body>
+                <Card.Title className="temperature">Control Fan</Card.Title>
+                <Card.Text className="p-4">
+                  <span>If the temperature is too hot just turn on!!<br /></span>
+                  <span>Or turn it off when it's too cold</span>
+                </Card.Text>
+                <Button className={fan ? "text-white control-on" : "text-white control-off"}
                     size="lg"
                     type="button"
                     name="fan"
                     block="true"
                     onClick={this.onClick}>
-                Fan: {fan ? 'On': 'Off'}
-            </Button>
+                  Fan: {fan ? 'On': 'Off'}
+                </Button>
+              </Card.Body>
+            </Card>
           </Col>
-          <Col lg={2} className="text-center">
-            <Button className={led ? "btn-embers-3" : "btn-embers-1"}
-                    size="lg"
-                    type="button"
-                    name="led"
-                    block="true"
-                    onClick={this.onClick}>
-                Led: {led ? 'On': 'Off'}
-            </Button>
-          </Col>
-        </Row>
-        <Row className="justify-content-center p-4">
           <Col lg={4} className="text-center">
-            <Button className={pump ? "btn-embers-3" : "btn-embers-1"}
-                    size="lg"
-                    type="button"
-                    name="pump"
-                    block="true"
-                    onClick={this.onClick}>
-                Pump: {pump ? 'On': 'Off'}
-            </Button>
+            <Card>
+              <Card.Img src={process.env.PUBLIC_URL + "/led.jpeg"} className="shadow-lg" />
+              <Card.Body>
+                <Card.Title className="food">Control Led</Card.Title>
+                <Card.Text className="p-4">
+                  <span>Playing with your cat? Just turn the led on<br /></span>
+                  <span>Remember to turn off if you don't use</span>
+                </Card.Text>
+                <Button className={led ? "text-white control-on" : "text-white control-off"}
+                      size="lg"
+                      type="button"
+                      name="led"
+                      block="true"
+                      onClick={this.onClick}>
+                  Led: {led ? 'On': 'Off'}
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col lg={4} className="text-center">
+            <Card>
+              <Card.Img src={process.env.PUBLIC_URL + "/pump.jpeg"} className="shadow-lg" />
+              <Card.Body>
+                <Card.Title className="water">Control Pump</Card.Title>
+                <Card.Text className="p-4">
+                  <span>Don't forget to get your cat some water<br /></span>
+                  <span>Don't waste too much water by turning off</span>
+                </Card.Text>
+                <Button className={pump ? "text-white control-on" : "text-white control-off"}
+                      size="lg"
+                      type="button"
+                      name="pump"
+                      block="true"
+                      onClick={this.onClick}>
+                  Pump: {pump ? 'On': 'Off'}
+                </Button>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Container>

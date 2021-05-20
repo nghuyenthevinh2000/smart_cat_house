@@ -9,8 +9,8 @@ const withAuthentication = Component => {
 
       this.state = {
         authUser: null,
-        email: '',
         username: '',
+        email: '',
       }
     }
     render() {

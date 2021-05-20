@@ -10,26 +10,25 @@ class DataPage extends Component {
     }
   }
 
-
   render() {
     const {data_in} = this.state;
     return(
       <Container>
         <Row className="justify-content-center">
-          <Col lg={6}>
-            <Table striped bordered hover>
+          <Col lg={12}>
+            <Table hover className="text-center align-middle">
               <thead>
                 <tr>
-                  <th>UID</th>
-                  <th>Food</th>
-                  <th>Temperature</th>
-                  <th>Water</th>
+                  <th className="text-embers-3">Received Time</th>
+                  <th className="text-embers-6">Food</th>
+                  <th className="text-embers-4">Temperature</th>
+                  <th className="text-embers-5">Water</th>
                 </tr>
               </thead>
               <tbody>
                 {data_in.map(item => (
                   <tr key={item.uid}>
-                    <td>{item.uid}</td>
+                    <td className="p-4">{item.uid}</td>
                     <td>{item.food}</td>
                     <td>{item.temperature}</td>
                     <td>{item.water}</td>

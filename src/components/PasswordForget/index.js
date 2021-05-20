@@ -7,10 +7,11 @@ import {Container, Form, Col, Row, Button} from 'react-bootstrap';
 
 const PasswordForgetPage = () =>
   <Container>
-    <h1>Password Forget</h1>
-    <h2>Send your email here</h2>
+    <h1 className="gradient-2">Password Forget</h1>
+    <h3 className="text-muted">Send your email here</h3>
     <Row className="justify-content-center">
       <Col lg={4}>
+        <hr />
         <PasswordForgetForm />
       </Col>
     </Row>
@@ -56,7 +57,7 @@ class PasswordForgetFormBase extends Component {
         </Form.Group>
         {error && <p className="alert">{error.message}</p>}
         <p className="p-4 text-center">
-          <Button className="btn-lg btn-embers-1" type="subit" disabled={isInvalid}>Submit</Button>
+          <Button className="text-white button-gradient" size="lg" type="submit" disabled={isInvalid}>Submit</Button>
         </p>
       </Form>
     );

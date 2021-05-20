@@ -1,11 +1,11 @@
-import react, {Component} from 'react';
+import React, {Component} from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 
 class InfoPage extends Component {
   render() {
     return (
-      <Container>
-        <h1>Cat house project v1</h1>
+      <Container className="p-4">
+        <h1 className="gradient-2">Cat house project v1</h1>
         <Row className="justify-content-center p-5">
           <Col lg={6}>
             <h2 className="text-embers-4">Introdution</h2>

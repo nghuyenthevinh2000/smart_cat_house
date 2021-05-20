@@ -14,16 +14,17 @@ const INITIAL_STATE = {
 }
 
 const SignInPage = () =>
-  <Container fuild="lg">
-    <h1>Sign In</h1>
-    <h2>Use your email to sign in</h2>
+  <Container fuild="lg" className="p-4">
     <Row className="justify-content-center">
+      <h1 className="gradient-2">Sign In</h1>
+      <h3 className="text-muted">Use your email to sign in</h3>
       <Col lg={4}>
+        <hr />
         <SignInForm />
+        <SignUpLink className="text-center"/>
+        <PasswordForgetLink className="text-center"/>
       </Col>
     </Row>
-    <SignUpLink className="text-center p-2 m-2"/>
-    <PasswordForgetLink className="text-center"/>
   </Container>;
 
 class SignInFormBase extends Component {
@@ -55,7 +56,7 @@ class SignInFormBase extends Component {
     const {email, password, error} = this.state;
     const isInvalid = email === '' || password === '';
     return(
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit} className="p-2">
           <Form.Group className="p-2">
             <Form.Label>Email</Form.Label>
             <Form.Control size="lg" type="email" name="email" onChange={this.onChange} placeholder="Email"/>
@@ -65,9 +66,9 @@ class SignInFormBase extends Component {
             <Form.Control size="lg" type="password" name="password" onChange={this.onChange} placeholder="Password"/>
           </Form.Group>
           {error && <p className="alert">{error.message}</p>}
-          <Col className="text-center">
-            <Button className="btn-lg btn-embers-1" type="submit" disabled={isInvalid}>Sign in</Button>
-          </Col>
+          <p className="p-4 m-0 text-center">
+            <Button className="text-white button-gradient"  size="lg" type="submit" disabled={isInvalid}>Sign in</Button>
+          </p>
         </Form>
     );
   }

@@ -15,11 +15,12 @@ const INITIAL_STATE = {
 }
 
 const SignUpPage = () =>
-  <Container fuild="lg">
-    <h1>Sign Up</h1>
-    <h2>Create your account here</h2>
+  <Container fuild="lg" className="p-4">
+    <h1 className="gradient-3">Sign Up</h1>
+    <h3 className="text-muted">Create your account here</h3>
     <Row className="justify-content-center">
     <Col lg={4}>
+      <hr />
       <SignUpForm />
     </Col>
     </Row>
@@ -73,9 +74,9 @@ class SignUpFormBase extends Component {
             <Form.Control size="lg" type="password" name="password2" onChange={this.onChange} placeholder="Confirm password"/>
           </Form.Group>
           {error && <p className="alert">{error.message}</p>}
-          <Col className="text-center">
-            <Button className="btn-lg btn-embers-1" type="submit" disabled={isInvalid}>Sign up</Button>
-          </Col>
+          <p className="p-4 text-center">
+            <Button className="text-white button-gradient"  size="lg" type="submit" disabled={isInvalid}>Sign up</Button>
+          </p>
         </Form>
     );
   }

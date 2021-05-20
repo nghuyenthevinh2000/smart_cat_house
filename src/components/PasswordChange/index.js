@@ -33,7 +33,7 @@ class PasswordChangePage extends Component {
     const isInvalid = password1 === '' || password2 === '';
     return (
       <Container className="p-4">
-        <h2>Change password here</h2>
+        <h2 className="gradient-2">Change password here</h2>
         <Row className="justify-content-center">
           <Col lg={4}>
             <Form onSubmit={this.onSubmit}>
@@ -45,7 +45,7 @@ class PasswordChangePage extends Component {
               </Form.Group>
               {error && <p className="alert">{error.message}</p>}
               <p className="text-center">
-                <Button className="btn-md btn-embers-1" type="submit" disabled={isInvalid}>Change Password</Button>
+                <Button className="text-white button-gradient" type="submit"  size="lg" block="true" disabled={isInvalid}>Change Password</Button>
               </p>
             </Form>
           </Col>

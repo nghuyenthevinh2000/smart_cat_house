@@ -23,7 +23,7 @@ class NavigationAuth extends Component {
             <img src={process.env.PUBLIC_URL + '/logo.jpg'}
                 className="d-inline-block logo"
                 alt="Cat house logo"/>{' '}
-            Cat House App
+            Smart Cat Home
           </Navbar.Brand>
           <Container>
             <Row className="justify-content-end">
@@ -42,6 +42,7 @@ class NavigationAuth extends Component {
             </Row>
           </Container>
         </Navbar>
+        <hr />
       </Container>
     );
   }
@@ -55,7 +56,7 @@ const NavigationNonAuth = () =>
         <img src={process.env.PUBLIC_URL + '/logo.jpg'}
             className="d-inline-block logo"
             alt="Cat house logo"/>{' '}
-        Cat House App
+        Smart Cat Home
       </Navbar.Brand>
       <Container>
         <Row className="justify-content-end">
@@ -74,6 +75,7 @@ const NavigationNonAuth = () =>
         </Row>
       </Container>
     </Navbar>
+    <hr />
   </Container>
 
 export default Navigation;

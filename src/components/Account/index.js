@@ -8,9 +8,8 @@ const AccountPage = () =>
   <AuthUserContext.Consumer>
   {state =>
     <Container>
-      <h1>Acount</h1>
-      <h2>Account info</h2>
-      <Row className="justify-content-center">
+      <h2 className='gradient-3'>Account Info</h2>
+      <Row className="justify-content-center m-4">
         <Col lg={2} className="p-0">
           <ListGroup as="ul">
             <ListGroup.Item as="li" className="bg-embers-4 border-0" active>
@@ -38,6 +37,7 @@ const AccountPage = () =>
           </ListGroup>
         </Col>
       </Row>
+      <Row className="p-4" />
       <PasswordChangePage />
     </Container>
   }

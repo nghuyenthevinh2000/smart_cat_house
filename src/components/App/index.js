@@ -9,7 +9,7 @@ import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import InfoPage from '../Info';
-
+import Footer from '../Footer';
 import {withAuthentication} from '../Session';
 import * as ROUTES from '../../constants/routes';
 
@@ -19,7 +19,6 @@ class App extends Component {
     return (
       <Router>
         <Navigation/>
-          <hr />
           <Route exact path={ROUTES.LANDING} component={LandingPage} />
           <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
           <Route path={ROUTES.SIGN_IN} component={SignInPage} />
@@ -27,6 +26,7 @@ class App extends Component {
           <Route path={ROUTES.HOME} component={HomePage} />
           <Route path={ROUTES.ACCOUNT} component={AccountPage} />
           <Route path={ROUTES.INFO} component={InfoPage} />
+        <Footer />
       </Router>
     );
   }
