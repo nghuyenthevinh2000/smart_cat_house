@@ -34,7 +34,7 @@ class Overview extends Component {
           </Col>
           <Col lg={4} className="text-center">
             <Card>
-              {water ? <Card.Img src={process.env.PUBLIC_URL + "/water.jpeg"} className="shadow-lg"/> :
+              {water ? <Card.Img src={process.env.PUBLIC_URL + "/water.png"} className="shadow-lg"/> :
               <Card.Img src={process.env.PUBLIC_URL + "/thirsty.jpeg"} className="shadow-lg"/>}
               <Card.Body>
                 <Card.Title className="water">Water</Card.Title>
@@ -47,7 +47,7 @@ class Overview extends Component {
           </Col>
           <Col lg={4} className="text-center">
             <Card>
-              {food? <Card.Img src={process.env.PUBLIC_URL + "/full.png"} className="shadow-lg"/> :
+              {food ? <Card.Img src={process.env.PUBLIC_URL + "/full.png"} className="shadow-lg"/> :
               <Card.Img src={process.env.PUBLIC_URL + "/hungry.png"} className="shadow-lg"/>}
               <Card.Body>
                 <Card.Title className="food">Food</Card.Title>

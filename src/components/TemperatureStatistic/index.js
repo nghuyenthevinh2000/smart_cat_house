@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {withFirebase} from '../Firebase';
-import {Container, Row, Col} from 'react-bootstrap';
 import {LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 
 const CustomTooltip = ({ active, payload, label }) => {
