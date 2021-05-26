@@ -20,14 +20,14 @@ class Overview extends Component {
         <Row className="justify-content-left p-4">
           <Col lg={4} className="text-center">
             <Card>
-              {temperature > 30 ?
+              {temperature > 34 ?
                 <Card.Img src={process.env.PUBLIC_URL + "/thesun.png"} className="shadow-lg"/> :
                 <Card.Img src={process.env.PUBLIC_URL + "/cloud.jpeg"} className="shadow-lg"/>}
               <Card.Body>
                 <Card.Title className="temperature">Temperature</Card.Title>
                 <Card.Text className="p-4">
                   <span>This is the temperature of the room<br/></span>
-                  <span className={temperature > 30 ? "hot": "cold"}>{temperature}°C</span>
+                  <span className={temperature > 34 ? "hot": "cold"}>{temperature}°C</span>
                 </Card.Text>
               </Card.Body>
             </Card>
