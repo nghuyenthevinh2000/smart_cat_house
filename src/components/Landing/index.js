@@ -6,8 +6,8 @@ class LandingPage extends Component {
   render() {
     this.props.history.push(ROUTES.HOME);
     return(
-      <div>
-      </div>
+      <p>
+      </p>
     );
   }
 }
