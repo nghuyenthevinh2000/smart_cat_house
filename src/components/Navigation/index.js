@@ -24,6 +24,7 @@ class NavigationAuth extends Component {
                 className="d-inline-block logo"
                 alt="Cat house logo"/>{' '}
             Smart Cat Home
+
           </Navbar.Brand>
           <Container>
             <Row className="justify-content-end">
