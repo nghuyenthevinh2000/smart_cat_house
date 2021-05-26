@@ -31,7 +31,6 @@ class HomePage extends Component {
 
 
   render() {
-    // const {display} = this.state;
     return(
       <Container>
         <Tab.Container defaultActiveKey="first">
