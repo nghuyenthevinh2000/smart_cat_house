@@ -20,6 +20,7 @@ const SignInPage = () =>
       <h3 className="text-muted">Use your email to sign in</h3>
       <Col lg={4}>
         <hr />
+
         <SignInForm />
         <SignUpLink className="text-center"/>
         <PasswordForgetLink className="text-center"/>
