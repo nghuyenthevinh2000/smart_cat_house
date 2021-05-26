@@ -22,6 +22,7 @@ const SignUpPage = () =>
     <Col lg={4}>
       <hr />
       <SignUpForm />
+
     </Col>
     </Row>
   </Container>
