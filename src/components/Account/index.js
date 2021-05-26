@@ -4,6 +4,7 @@ import PasswordChangePage from '../PasswordChange';
 import {AuthUserContext, withAuthorization} from '../Session';
 import {ListGroup, Container, Row, Col} from 'react-bootstrap';
 
+
 const AccountPage = () =>
   <AuthUserContext.Consumer>
   {state =>
