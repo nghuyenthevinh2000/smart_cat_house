@@ -10,6 +10,7 @@ class DataPage extends Component {
     }
   }
 
+
   render() {
     const {data_in} = this.state;
     return(

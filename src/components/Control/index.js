@@ -16,6 +16,7 @@ class ControlPage extends Component {
     this.onClick = this.onClick.bind(this);
   }
 
+
   onClick = (event) => {
     let ctrl = this.state[event.target.name];
     ctrl = ctrl ? 0 : 1;
