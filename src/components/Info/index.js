@@ -19,7 +19,7 @@ class InfoPage extends Component {
           </Col>
         </Row>
          <Row className="justify-content-center p-5">
-          <h2 className="text-embers-1">People behind</h2>
+          <h2 className="text-embers-1">People Behind</h2>
           <Col lg={3} className="text-center font-weight-bolder">
             <p>Nguyen Tran Long Anh</p>
             <p>Nguyen The Vinh</p>
