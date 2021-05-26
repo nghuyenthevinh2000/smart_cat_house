@@ -45,7 +45,8 @@ class PasswordChangePage extends Component {
               </Form.Group>
               {error && <p className="alert">{error.message}</p>}
               <p className="text-center">
-                <Button className="text-white button-gradient" type="submit"  size="lg" block="true" disabled={isInvalid}>Change Password</Button>
+                <Button className="text-white button-gradient" type="submit"  size="lg" block="true" disabled={isInvalid}>
+                  Change Password</Button>
               </p>
             </Form>
           </Col>
