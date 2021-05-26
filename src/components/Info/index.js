@@ -34,4 +34,5 @@ class InfoPage extends Component {
   }
 }
 
+
 export default InfoPage;
