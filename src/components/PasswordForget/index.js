@@ -11,6 +11,7 @@ const PasswordForgetPage = () =>
     <h3 className="text-muted">Send your email here</h3>
     <Row className="justify-content-center">
       <Col lg={4}>
+
         <hr />
         <PasswordForgetForm />
       </Col>
