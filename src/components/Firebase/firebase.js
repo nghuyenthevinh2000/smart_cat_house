@@ -27,13 +27,6 @@ class Firebase {
         this.doPasswordUpdate = this.doPasswordUpdate.bind(this);
     }
 
-    // writeUserData(userId, username, email, ) {
-    //   this.db.ref('users').set({
-    //     username: name,
-    //     email: email,
-
-    //   })
-    // }
 
     doCreateUserWithEmailAndPassword = (email, password) =>
       this.auth.createUserWithEmailAndPassword(email, password);
