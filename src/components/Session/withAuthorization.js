@@ -1,37 +1,32 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 
 import {withFirebase} from '../Firebase';
-import {AuthUserContext} from './context';
+import {AuthUserContext, withAuthentication} from './context';
+import Authentication from './Authentication';
 import * as ROUTES from '../../constants/routes';
+import Cookies from 'universal-cookie';
 
-const withAuthorization = condition => Component => {
-  class WithAuthorization extends Component {
+const cookies = new Cookies();
 
+const withAuthorization = Component => {
+  class WithAuthorization extends React.Component {
     render() {
       return (
         <AuthUserContext.Consumer>
-          {state => condition(state.authUser) ? <Component {...this.props} /> : null}
+          {state => state.username ? <Component authUser={state}/> : null}
         </AuthUserContext.Consumer>
       );
     }
 
-    componentDidMount() {
-      this.listener = this.props.firebase.auth.onAuthStateChanged(
-        authUser => {
-          if(!condition(authUser)) {
-            this.props.history.push(ROUTES.SIGN_IN);
-          }
-        }
-      );
+     componentDidMount() {
+      if (!cookies.get('cat_house_username')) {
+        this.props.history.push(ROUTES.SIGN_IN);
+      }
     }
-
-    componentWillUnmount() {
-      this.listener();
-    }
-
   }
-  return withRouter(withFirebase(WithAuthorization));
+
+  return withRouter(WithAuthorization);
 }
 
 export default withAuthorization;

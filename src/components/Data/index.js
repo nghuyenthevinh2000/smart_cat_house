@@ -10,7 +10,6 @@ class DataPage extends Component {
     }
   }
 
-
   render() {
     const {data_in} = this.state;
     return(
@@ -45,7 +44,8 @@ class DataPage extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.data_in().limitToLast(10).on('value', snapshot => {
+
+    this.props.firebase.data_in(this.props.espid).limitToLast(10).on('value', snapshot => {
       const data = snapshot.val();
       const data_list = Object.keys(data).map(key => ({ ...data[key], uid: key}));
       this.setState({data_in: data_list});
@@ -53,7 +53,7 @@ class DataPage extends Component {
   }
 
   componentWillUnmount() {
-    this.props.firebase.data_in().off();
+    this.props.firebase.data_in(this.props.espid).off();
   }
 
 }

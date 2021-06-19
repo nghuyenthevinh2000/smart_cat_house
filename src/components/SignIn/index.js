@@ -2,15 +2,19 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {withFirebase} from '../Firebase';
 import {SignUpLink} from '../SignUp';
+import {withAuthentication} from '../Session';
 import {PasswordForgetLink} from '../PasswordForget';
 import * as ROUTES from '../../constants/routes';
-
 import {Form, Container, Button, Col, Row} from 'react-bootstrap';
+import Cookies from 'universal-cookie';
+
+
+const cookies = new Cookies();
 
 const INITIAL_STATE = {
   email: '',
   password: '',
-  error: null,
+  error: '',
 }
 
 const SignInPage = () =>
@@ -42,6 +46,8 @@ class SignInFormBase extends Component {
     this.props.firebase.doSignInWithEmailAndPassword(email, password)
     .then(authUser => {
       this.setState({...INITIAL_STATE});
+      cookies.set('cat_house_username', authUser.name, { path: '/'});
+      cookies.set('cat_house_email', authUser.email, { path: '/'});
       this.props.history.push(ROUTES.HOME);
     })
     .catch(error => this.setState({error}));
@@ -66,7 +72,7 @@ class SignInFormBase extends Component {
             <Form.Label>Password</Form.Label>
             <Form.Control size="lg" type="password" name="password" onChange={this.onChange} placeholder="Password"/>
           </Form.Group>
-          {error && <p className="alert">{error.message}</p>}
+          {error && <p className="alert">{error}</p>}
           <p className="p-4 m-0 text-center">
             <Button className="text-white button-gradient"  size="lg" type="submit" disabled={isInvalid}>Sign in</Button>
           </p>

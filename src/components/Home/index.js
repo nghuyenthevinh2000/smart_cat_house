@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {withAuthorization} from '../Session';
+import {withFirebase} from '../Firebase';
 import DataPage from '../Data';
 import ControlPage from '../Control';
 import Overview from '../Overview';
@@ -8,6 +9,7 @@ import TemperatureStatistic from '../TemperatureStatistic';
 import WaterStatistic from '../WaterStatistic';
 import FoodStatistic from '../FoodStatistic';
 import {Container, Row, Col, Button, Tab, Nav, Carousel} from 'react-bootstrap';
+import hash from 'object-hash';
 
 class HomePage extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class HomePage extends Component {
 
     this.state = {
       display: null,
+      house: null,
     }
 
     this.onClick = this.onClick.bind(this);
@@ -25,12 +28,12 @@ class HomePage extends Component {
     ctrl = ctrl ? null : 1;
 
     this.setState({display: ctrl});
-    console.log(this.state);
     this.props.firebase.control_out().update({[event.target.name]: ctrl});
   }
 
 
   render() {
+    const {display, house} = this.state;
     return(
       <Container>
         <Tab.Container defaultActiveKey="first">
@@ -52,58 +55,51 @@ class HomePage extends Component {
               <Tab.Pane eventKey="first">
                 <Row className="p-4">
                   <h2 className="gradient-1">Overview</h2>
-                  <Overview />
+                  {house && <Overview espid={house}/>}
                 </Row>
               </Tab.Pane>
               <Tab.Pane eventKey="second">
                 <Row className="p-4">
                   <h2 className="gradient-2">Data table</h2>
-                  <DataPage/>
+                  {house && <DataPage espid={house}/>}
                 </Row>
               </Tab.Pane>
               <Tab.Pane eventKey="third">
                   <Row className="p-4">
                     <h2 className="gradient-3">Control station</h2>
-                    <ControlPage />
+                    {house && <ControlPage espid={house}/>}
                   </Row>
               </Tab.Pane>
               <Tab.Pane eventKey="fouth">
                 <Carousel className="p-4">
                   <Carousel.Item>
                     <h2 className="temperature">Temperature</h2>
-                    <TemperatureStatistic />
+                    {house && <TemperatureStatistic espid={house}/>}
                   </Carousel.Item>
                   <Carousel.Item>
                     <h2 className="water">Water</h2>
-                    <WaterStatistic />
+                    {house && <WaterStatistic espid={house}/>}
                   </Carousel.Item>
                   <Carousel.Item>
                     <h2 className="food">Food</h2>
-                    <FoodStatistic />
+                    {house && <FoodStatistic espid={house}/>}
                   </Carousel.Item>
                 </Carousel>
               </Tab.Pane>
           </Tab.Content>
         </Tab.Container>
-
-{/*        <Row className="p-4 justify-content-center">
-          <Col lg={2} className="text-center">
-            <Button className={display ? "btn-embers-3" : "btn-embers-1"}
-                        size="lg"
-                        type="button"
-                        name="display"
-                        block="true"
-                        onClick={this.onClick}>
-                    {display ? 'On': 'Off'}
-            </Button>
-          </Col>
-        </Row>*/}
-        </Container>
-
+      </Container>
     );
   }
+
+  componentDidMount() {
+    const userId = hash(this.props.authUser.email);
+    this.props.firebase.user(userId).once('value').then(snapshot => {
+      const value = snapshot.val();
+      this.setState({house : value.house});
+    })
+  }
+
 }
 
-const condition = authUser => authUser;
-
-export default withAuthorization(condition)(HomePage);
+export default withFirebase(withAuthorization(withFirebase(HomePage)));

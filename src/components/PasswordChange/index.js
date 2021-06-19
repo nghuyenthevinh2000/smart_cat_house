@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withFirebase} from '../Firebase';
 import {Container, Row, Col, Form, Button} from 'react-bootstrap';
+import {withAuthorization} from '../Session';
 
 const INITIAL_STATE = {
   password1: '',
@@ -19,9 +20,11 @@ class PasswordChangePage extends Component {
 
   onSubmit = (event) => {
     const {password1} = this.state;
-    this.props.firebase.doPasswordUpdate(password1)
-    .then(() => {this.setState({...INITIAL_STATE})})
-    .catch(error => {this.setState({error})});
+    this.props.firebase.doPasswordUpdate(this.props.authUser, password1);
+    this.setState({...INITIAL_STATE});
+
+    event.preventDefault();
+
   }
 
   onChange = (event) => {

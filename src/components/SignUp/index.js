@@ -11,7 +11,8 @@ const INITIAL_STATE = {
   email:'',
   password1: '',
   password2: '',
-  error: null,
+  espid:'',
+  error: '',
 }
 
 const SignUpPage = () =>
@@ -22,7 +23,6 @@ const SignUpPage = () =>
     <Col lg={4}>
       <hr />
       <SignUpForm />
-
     </Col>
     </Row>
   </Container>
@@ -37,15 +37,10 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = event => {
-    const {username, email, password1} = this.state;
-    this.props.firebase.doCreateUserWithEmailAndPassword(email, password1)
-    .then(authUser => {
-        this.props.history.push(ROUTES.HOME);
-        this.props.firebase.user(authUser.user.uid).set({username, email});
-      })
-    .catch(error => {
-      this.setState({error});
-    })
+    const {username, email, espid, password1} = this.state;
+    this.props.firebase.doCreateUserWithEmailAndPassword(username, email, espid, password1)
+    .then(res => this.props.history.push(ROUTES.SIGN_IN))
+    .catch(error => this.setState({error}));
     event.preventDefault();
   }
 
@@ -67,6 +62,10 @@ class SignUpFormBase extends Component {
             <Form.Control size="lg" type="email" name="email" onChange={this.onChange} placeholder="Email"/>
           </Form.Group>
           <Form.Group className="p-2">
+            <Form.Label>Esp-32</Form.Label>
+          <Form.Control size="lg" type="text" name="espid" onChange={this.onChange} placeholder="ID"/>
+          </Form.Group>
+          <Form.Group className="p-2">
             <Form.Label>Password</Form.Label>
             <Form.Control size="lg" type="password" name="password1" onChange={this.onChange} placeholder="Password"/>
           </Form.Group>
@@ -74,7 +73,7 @@ class SignUpFormBase extends Component {
             <Form.Label>Confirm password</Form.Label>
             <Form.Control size="lg" type="password" name="password2" onChange={this.onChange} placeholder="Confirm password"/>
           </Form.Group>
-          {error && <p className="alert">{error.message}</p>}
+          {error && <p className="alert">{error}</p>}
           <p className="p-4 text-center">
             <Button className="text-white button-gradient"  size="lg" type="submit" disabled={isInvalid}>Sign up</Button>
           </p>

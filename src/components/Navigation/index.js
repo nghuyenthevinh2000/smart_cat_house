@@ -4,14 +4,30 @@ import SignOutLink from '../SignOut';
 import {AuthUserContext} from '../Session';
 import * as ROUTES from '../../constants/routes';
 import {Navbar, Nav, NavLink, NavItem, Dropdown, Container, Col, Row} from 'react-bootstrap';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 
-const Navigation = () =>
-  <div>
-    <AuthUserContext.Consumer>
-      {state => state.authUser ? <NavigationAuth {...state}/> : <NavigationNonAuth />}
-    </AuthUserContext.Consumer>
-  </div>;
+class Navigation extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isAuth: null,
+    }
+  }
+
+  render() {
+    const isAuth = this.state;
+    return(
+      <AuthUserContext.Consumer>
+        {state => state.username ? <NavigationAuth username={state.username}/> : <NavigationNonAuth />}
+      </AuthUserContext.Consumer>
+    );
+  }
+
+}
 
 
 class NavigationAuth extends Component {

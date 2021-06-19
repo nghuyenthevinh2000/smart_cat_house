@@ -12,6 +12,6 @@ class LandingPage extends Component {
   }
 }
 
-const condition = authUser => authUser;
+const condition = isAuth => isAuth;
 
-export default withAuthorization(condition)(LandingPage);
+export default LandingPage;

@@ -20,7 +20,7 @@ class ControlPage extends Component {
   onClick = (event) => {
     let ctrl = this.state[event.target.name];
     ctrl = ctrl ? 0 : 1;
-    this.props.firebase.control_out().update({[event.target.name]: ctrl});
+    this.props.firebase.control_out(this.props.espid).update({[event.target.name]: ctrl});
   }
 
   render() {
@@ -94,14 +94,14 @@ class ControlPage extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.control_out().on('value', snapshot => {
+    this.props.firebase.control_out(this.props.espid).on('value', snapshot => {
       const control = snapshot.val();
       this.setState({...control});
     })
   }
 
   componentWillUnmount() {
-    this.props.firebase.control_out().off();
+    this.props.firebase.control_out(this.props.espid).off();
   }
 
 }

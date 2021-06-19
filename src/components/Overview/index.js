@@ -6,7 +6,7 @@ class Overview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: null,
+      uid: '',
       food: 0,
       temperature: 0,
       water: 0,
@@ -20,14 +20,14 @@ class Overview extends Component {
         <Row className="justify-content-left p-4">
           <Col lg={4} className="text-center">
             <Card>
-              {temperature > 34 ?
+              {temperature > 30 ?
                 <Card.Img src={process.env.PUBLIC_URL + "/thesun.png"} className="shadow-lg"/> :
                 <Card.Img src={process.env.PUBLIC_URL + "/cloud.jpeg"} className="shadow-lg"/>}
               <Card.Body>
                 <Card.Title className="temperature">Temperature</Card.Title>
                 <Card.Text className="p-4">
                   <span>This is the temperature of the room<br/></span>
-                  <span className={temperature > 34 ? "hot": "cold"}>{temperature}°C</span>
+                  <span className={temperature > 30 ? "hot": "cold"}>{temperature}°C</span>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -64,7 +64,7 @@ class Overview extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.data_in().limitToLast(1).on('value', snapshot => {
+    this.props.firebase.data_in(this.props.espid).limitToLast(1).on('value', snapshot => {
       const data = snapshot.val();
       const key = Object.keys(data)[0];
       this.setState({uid: key, ...data[key]});
@@ -72,7 +72,7 @@ class Overview extends Component {
   }
 
   componentWillUnmount() {
-    this.props.firebase.data_in().off();
+    this.props.firebase.data_in(this.props.espid).off();
   }
 
 }

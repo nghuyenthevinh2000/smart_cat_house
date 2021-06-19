@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-
+import {Link, withRouter} from 'react-router-dom';
 import {withFirebase} from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import {Container, Form, Col, Row, Button} from 'react-bootstrap';
+import hash from 'object-hash';
 
 const PasswordForgetPage = () =>
   <Container>
@@ -11,7 +11,6 @@ const PasswordForgetPage = () =>
     <h3 className="text-muted">Send your email here</h3>
     <Row className="justify-content-center">
       <Col lg={4}>
-
         <hr />
         <PasswordForgetForm />
       </Col>
@@ -27,20 +26,38 @@ const INITIAL_STATE = {
 class PasswordForgetFormBase extends Component {
   constructor(props) {
     super(props);
-
     this.state = {...INITIAL_STATE};
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
+  }
 
+  sendEmail = (email) => {
+    const userId = hash(email);
+    this.props.firebase.user(userId).once('value').then(snapshot => {
+      const value = snapshot.val();
+      const mailgun = require("mailgun-js");
+      const DOMAIN = "sandbox57bc022116e342f8b7c30d016f31eacf.mailgun.org";
+      const mg = mailgun({apiKey: "70f908031604ab1ffde4729d4b33f0c6-24e2ac64-8fa813cc", domain: DOMAIN});
+      const data = {
+        from: "cat_house2020@iot.hust.com",
+        to: `${email}`,
+        subject: "Change password",
+        text: `Code: ${value.code}`,
+      };
+      mg.messages().send(data, function (error, body) {
+        console.log(body);
+      });
+    })
+
+    this.props.firebase.user(userId).update({'code': Math.floor(Math.random() * 99999) + 10000});
   }
 
   onSubmit = (event) => {
-    const {email} = this.state;
-    this.props.firebase.doPasswordReset(email.trim())
-    .then(() => {this.setState({...INITIAL_STATE})})
-    .catch(error => {this.setState({error})});
-
     event.preventDefault();
+    const {email, code} = this.state;
+    this.sendEmail(email);
+    this.props.history.push(ROUTES.PASSWORD_CONFIRM + `/${hash(email)}`);
   }
 
   onChange = (event) => {
@@ -65,7 +82,7 @@ class PasswordForgetFormBase extends Component {
   }
 }
 
-const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
+const PasswordForgetForm = withRouter(withFirebase(PasswordForgetFormBase));
 
 const PasswordForgetLink = (props) =>
   <p {...props}>

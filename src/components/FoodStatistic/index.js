@@ -50,7 +50,7 @@ class FoodStatistic extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.data_in().limitToLast(20).on('value', snapshot => {
+    this.props.firebase.data_in(this.props.espid).limitToLast(20).on('value', snapshot => {
       const data = snapshot.val();
       const data_list = Object.keys(data).map(key => ({food: data[key].food, receive_time: key}));
       this.setState({data: data_list});
@@ -58,7 +58,7 @@ class FoodStatistic extends Component {
   }
 
   componentWillUnmount() {
-    this.props.firebase.data_in().off();
+    this.props.firebase.data_in(this.props.espid).off();
   }
 }
 

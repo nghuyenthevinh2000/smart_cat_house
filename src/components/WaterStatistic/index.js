@@ -48,16 +48,15 @@ class WaterStatistic extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.data_in().limitToLast(20).on('value', snapshot => {
+    this.props.firebase.data_in(this.props.espid).limitToLast(20).on('value', snapshot => {
       const data = snapshot.val();
       const data_list = Object.keys(data).map(key => ({water: data[key].water, receive_time: key}));
-      console.log(data_list);
       this.setState({data: data_list});
     })
   }
 
   componentWillUnmount() {
-    this.props.firebase.data_in().off();
+    this.props.firebase.data_in(this.props.espid).off();
   }
 }
 

@@ -8,9 +8,9 @@ import './index.scss';
 import './index.css';
 
 ReactDOM.render(
-  <FirebaseContext.Provider value={new Firebase()}>
-      <App/>
-  </FirebaseContext.Provider>
+    <FirebaseContext.Provider value={new Firebase()}>
+        <App/>
+    </FirebaseContext.Provider>
   ,
   document.getElementById('root')
 );

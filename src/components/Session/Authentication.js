@@ -1,14 +1,18 @@
 import React from 'react';
 import {AuthUserContext} from './context';
 import {withFirebase} from '../Firebase';
+import Cookies from 'universal-cookie';
+
 
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
     constructor(props) {
       super(props);
 
+      this.cookies = new Cookies();
+
+      this.intervalID = null;
       this.state = {
-        authUser: null,
         username: '',
         email: '',
       }
@@ -22,21 +26,15 @@ const withAuthentication = Component => {
     }
 
     componentDidMount() {
-      this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-        authUser ? this.props.firebase.user(authUser.uid).on('value', snapshot => {
-          const user = snapshot.val();
-          this.setState({authUser: authUser, username: user.username, email: user.email});
-        }) : this.setState({authUser: null, username:'', email:''});
-      })
-
+      this.intervalID = setInterval(() => {this.setState({username: this.cookies.get('cat_house_username'), email: this.cookies.get('cat_house_email')});}, 1000);
     }
 
     componentWillUnmount() {
-      this.listener();
+      clearInterval(this.intervalID);
     }
   }
 
-  return withFirebase(WithAuthentication);
+  return WithAuthentication;
 
 }
 
