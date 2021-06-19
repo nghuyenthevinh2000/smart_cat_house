@@ -37,8 +37,8 @@ class PasswordForgetFormBase extends Component {
     this.props.firebase.user(userId).once('value').then(snapshot => {
       const value = snapshot.val();
       const mailgun = require("mailgun-js");
-      const DOMAIN = "sandbox57bc022116e342f8b7c30d016f31eacf.mailgun.org";
-      const mg = mailgun({apiKey: "70f908031604ab1ffde4729d4b33f0c6-24e2ac64-8fa813cc", domain: DOMAIN});
+      const DOMAIN = `${process.env.MAILGUN_DOMAIN}`;
+      const mg = mailgun({apiKey: `${process.env.MAILGUN_API_KEY}`, domain: DOMAIN});
       const data = {
         from: "cat_house2020@iot.hust.com",
         to: `${email}`,
