@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 
 import SignOutLink from '../SignOut';
 import {AuthUserContext} from '../Session';
-import {withRouter} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
+import * as BUS_CONFIG from '../../constants/mac';
 import {Navbar, Nav, NavLink, NavItem, Dropdown, Container, Col, Row} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
@@ -12,6 +12,10 @@ const cookies = new Cookies();
 class Navigation extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      station : Object.keys(BUS_CONFIG.MAC)
+    }
 
     this.onBusSelect = this.onBusSelect.bind(this);
   }
@@ -24,7 +28,7 @@ class Navigation extends Component {
   render() {
     return(
       <AuthUserContext.Consumer>
-        {state => state.username ? <NavigationAuth username={state.username} onBusSelect={this.onBusSelect} bus={state.bus}/> : <NavigationNonAuth />}
+        {state => state.username ? <NavigationAuth username={state.username} onBusSelect={this.onBusSelect} bus={state.bus} station={this.state.station}/> : <NavigationNonAuth />}
       </AuthUserContext.Consumer>
     );
   }
@@ -42,20 +46,20 @@ class NavigationAuth extends Component {
           </Navbar.Brand>
           <Container>
             <Row className="justify-content-end">
-              <Col lg = {1}>
+              <Col lg = {2}>
                 <Dropdown as={NavItem} onSelect={this.props.onBusSelect}>
                   <Dropdown.Toggle as={NavLink}>{this.props.bus}</Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {['Cau Giay', 'Giap Bat'].map((station) => (
+                    {this.props.station.map((station) => (
                       <Nav.Link eventKey={station} href={ROUTES.HOME}>{station}</Nav.Link>
                     ))}
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>
-              <Col lg={2}>
+              <Col lg={1}>
                 <Nav.Link href={ROUTES.INFO}>Info</Nav.Link>
               </Col>
-              <Col lg={3}>
+              <Col lg={2}>
                 <Dropdown as={NavItem}>
                   <Dropdown.Toggle as={NavLink}>{this.props.username}</Dropdown.Toggle>
                   <Dropdown.Menu>

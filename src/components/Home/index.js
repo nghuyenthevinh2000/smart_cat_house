@@ -8,6 +8,7 @@ import WaterStatistic from '../WaterStatistic';
 import FoodStatistic from '../FoodStatistic';
 import {Container, Row, Col, Button, Tab, Nav, Carousel} from 'react-bootstrap';
 import hash from 'object-hash';
+import * as BUS_CONFIG from '../../constants/mac';
 
 class HomePage extends Component {
   constructor(props) {
@@ -74,7 +75,7 @@ class HomePage extends Component {
     const userId = hash(this.props.authUser.email);
     this.props.firebase.user(userId).once('value').then(snapshot => {
       const value = snapshot.val();
-      this.setState({house : value.house});
+      this.setState({house : BUS_CONFIG.MAC[this.props.bus]});
     })
   }
 
