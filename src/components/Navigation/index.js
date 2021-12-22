@@ -5,6 +5,7 @@ import {AuthUserContext} from '../Session';
 import * as ROUTES from '../../constants/routes';
 import {Navbar, Nav, NavLink, NavItem, Dropdown, Container, Col, Row} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 const cookies = new Cookies();
 
@@ -16,13 +17,19 @@ class Navigation extends Component {
     this.state = {
       isAuth: null,
     }
+
+    this.onBusSelect = this.onBusSelect.bind(this);
+  }
+
+  onBusSelect(eventKey, event){
+    console.log(eventKey);
   }
 
   render() {
     const isAuth = this.state;
     return(
       <AuthUserContext.Consumer>
-        {state => state.username ? <NavigationAuth username={state.username}/> : <NavigationNonAuth />}
+        {state => state.username ? <NavigationAuth username={state.username} onBusSelect={this.onBusSelect}/> : <NavigationNonAuth />}
       </AuthUserContext.Consumer>
     );
   }
@@ -41,10 +48,12 @@ class NavigationAuth extends Component {
           <Container>
             <Row className="justify-content-end">
               <Col lg = {1}>
-                <Dropdown as={NavItem}>
+                <Dropdown as={NavItem} onSelect={this.props.onBusSelect}>
                   <Dropdown.Toggle as={NavLink}>Station</Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <NavLink href={ROUTES.ACCOUNT}>Station</NavLink>
+                    {['Cau Giay', 'Giap Bat'].map((station) => (
+                      <Dropdown.Item eventKey={station}>{station}</Dropdown.Item>
+                    ))}
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>
