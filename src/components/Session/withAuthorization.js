@@ -1,9 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 
-import {withFirebase} from '../Firebase';
-import {AuthUserContext, withAuthentication} from './context';
-import Authentication from './Authentication';
+import {AuthUserContext} from './context';
 import * as ROUTES from '../../constants/routes';
 import Cookies from 'universal-cookie';
 
@@ -14,7 +12,7 @@ const withAuthorization = Component => {
     render() {
       return (
         <AuthUserContext.Consumer>
-          {state => state.username ? <Component authUser={state}/> : null}
+          {state => state.username ? <Component authUser={state} bus={state.bus}/> : null}
         </AuthUserContext.Consumer>
       );
     }

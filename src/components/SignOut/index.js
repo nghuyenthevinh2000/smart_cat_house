@@ -19,6 +19,7 @@ class SignOutLink extends Component {
   signOut = (event) => {
     cookies.remove('cat_house_username');
     cookies.remove('cat_house_email');
+    cookies.remove('bus');
     this.props.history.push(ROUTES.SIGN_IN);
   };
 

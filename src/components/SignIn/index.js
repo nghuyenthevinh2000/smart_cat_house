@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   error: '',
+  bus: 'Cau Giay',
 }
 
 const SignInPage = () =>
@@ -48,6 +49,7 @@ class SignInFormBase extends Component {
       this.setState({...INITIAL_STATE});
       cookies.set('cat_house_username', authUser.name, { path: '/'});
       cookies.set('cat_house_email', authUser.email, { path: '/'});
+      cookies.set('bus', INITIAL_STATE.bus, { path: '/'});
       this.props.history.push(ROUTES.HOME);
     })
     .catch(error => this.setState({error}));

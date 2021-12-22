@@ -15,6 +15,7 @@ const withAuthentication = Component => {
       this.state = {
         username: '',
         email: '',
+        bus: 'Cau Giay'
       }
     }
     render() {
@@ -26,7 +27,7 @@ const withAuthentication = Component => {
     }
 
     componentDidMount() {
-      this.intervalID = setInterval(() => {this.setState({username: this.cookies.get('cat_house_username'), email: this.cookies.get('cat_house_email')});}, 1000);
+      this.intervalID = setInterval(() => {this.setState({username: this.cookies.get('cat_house_username'), email: this.cookies.get('cat_house_email'), bus: this.cookies.get('bus')});}, 1000);
     }
 
     componentWillUnmount() {

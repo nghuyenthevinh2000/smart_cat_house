@@ -17,7 +17,6 @@ class HomePage extends Component {
       display: null,
       house: null,
     }
-
   }
 
   render() {
