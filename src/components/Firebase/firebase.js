@@ -35,7 +35,7 @@ class Firebase {
     data_in = (espid) => this.db.ref(`house/${espid}/data_in`);
     control_out = (espid) => this.db.ref(`house/${espid}/control_out`);
 
-    doCreateUserWithEmailAndPassword = (username, email, espid, password) =>
+    doCreateUserWithEmailAndPassword = (username, email, password) =>
       this.users().once('value').then( snapshot => {
         const uid = hash(email);
         return new Promise((resolve, reject) => {
@@ -44,7 +44,7 @@ class Firebase {
             reject('This account already exists');
           }
           else {
-            this.users().child(`${uid}`).set({'name': username, 'email': email, 'house': espid, 'password': hash(password), 'code': Math.floor(Math.random() * 99999) + 10000});
+            this.users().child(`${uid}`).set({'name': username, 'email': email, 'password': hash(password), 'code': Math.floor(Math.random() * 99999) + 10000});
             resolve('Success!!');
           }
         })

@@ -36,18 +36,22 @@ class NavigationAuth extends Component {
       <Container fluid="lg">
         <Navbar variant="light">
           <Navbar.Brand href={ROUTES.HOME} className="text-embers-4">
-            <img src={process.env.PUBLIC_URL + '/logo.jpg'}
-                className="d-inline-block logo"
-                alt="Cat house logo"/>{' '}
-            Smart Cat Home
-
+            Bus Monitor
           </Navbar.Brand>
           <Container>
             <Row className="justify-content-end">
-              <Col lg={1}>
-                <Nav.Link href={ROUTES.INFO}>Info</Nav.Link>
+              <Col lg = {1}>
+                <Dropdown as={NavItem}>
+                  <Dropdown.Toggle as={NavLink}>Station</Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <NavLink href={ROUTES.ACCOUNT}>Station</NavLink>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Col>
               <Col lg={2}>
+                <Nav.Link href={ROUTES.INFO}>Info</Nav.Link>
+              </Col>
+              <Col lg={3}>
                 <Dropdown as={NavItem}>
                   <Dropdown.Toggle as={NavLink}>{this.props.username}</Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -60,6 +64,14 @@ class NavigationAuth extends Component {
           </Container>
         </Navbar>
         <hr />
+        <style jsx>{`
+          .container .row {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+        `}</style>
       </Container>
     );
   }
@@ -70,10 +82,7 @@ const NavigationNonAuth = () =>
   <Container fluid="lg">
     <Navbar variant="light">
       <Navbar.Brand href={ROUTES.HOME} className="text-embers-4">
-        <img src={process.env.PUBLIC_URL + '/logo.jpg'}
-            className="d-inline-block logo"
-            alt="Cat house logo"/>{' '}
-        Smart Cat Home
+        Bus Monitor
       </Navbar.Brand>
       <Container>
         <Row className="justify-content-end">
@@ -93,6 +102,14 @@ const NavigationNonAuth = () =>
       </Container>
     </Navbar>
     <hr />
+    <style jsx>{`
+      .container .row {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    `}</style>
   </Container>
 
 export default Navigation;

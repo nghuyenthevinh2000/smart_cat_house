@@ -32,7 +32,12 @@ class TemperatureStatistic extends Component {
     return(
       <ResponsiveContainer width="100%" height={520}>
             <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
-              <Line type="monotone" dataKey="temperature" dot={false} stroke="#FE9677" fill="#FE9677" strokeWidth={2}/>
+              <Line type="monotone" 
+                dataKey="temperature" 
+                dot={false} 
+                stroke="#FE9677" 
+                fill="#FE9677" 
+                strokeWidth={2}/>
               <CartesianGrid stroke="#ccc" strokeDasharray="3 3"/>
               <XAxis dataKey="receive_time"/>
               <YAxis/>

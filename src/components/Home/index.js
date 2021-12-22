@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-
 import {withAuthorization} from '../Session';
 import {withFirebase} from '../Firebase';
 import DataPage from '../Data';
-import ControlPage from '../Control';
 import Overview from '../Overview';
 import TemperatureStatistic from '../TemperatureStatistic';
 import WaterStatistic from '../WaterStatistic';
@@ -20,17 +18,7 @@ class HomePage extends Component {
       house: null,
     }
 
-    this.onClick = this.onClick.bind(this);
   }
-
-  onClick = (event) => {
-    let ctrl = this.state[event.target.name];
-    ctrl = ctrl ? null : 1;
-
-    this.setState({display: ctrl});
-    this.props.firebase.control_out().update({[event.target.name]: ctrl});
-  }
-
 
   render() {
     const {display, house} = this.state;
@@ -43,9 +31,6 @@ class HomePage extends Component {
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="second">Data table</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="third">Control</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="fouth">Statistic</Nav.Link>
@@ -63,12 +48,6 @@ class HomePage extends Component {
                   <h2 className="gradient-2">Data table</h2>
                   {house && <DataPage espid={house}/>}
                 </Row>
-              </Tab.Pane>
-              <Tab.Pane eventKey="third">
-                  <Row className="p-4">
-                    <h2 className="gradient-3">Control station</h2>
-                    {house && <ControlPage espid={house}/>}
-                  </Row>
               </Tab.Pane>
               <Tab.Pane eventKey="fouth">
                 <Carousel className="p-4">

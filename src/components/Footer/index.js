@@ -8,7 +8,7 @@ class Footer extends Component {
     return (
       <footer className="text-center text-muted fixed-bottom p-4">
         <Container>
-          © 2021 Copyright: Group 10 IoT Smart cat home
+          © 2021 Project 3 of Nguyen The Vinh
         </Container>
       </footer>
     );
