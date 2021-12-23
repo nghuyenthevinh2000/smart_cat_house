@@ -6,3 +6,5 @@ export const MAC = {
 export const BUS = {
     
 }
+
+export const SUPERFICIAL_MAX_NUMBER_BUX_IN_A_DAY = 1000;

@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {withFirebase} from '../Firebase';
 import {Container, Row, Col, Card} from 'react-bootstrap';
+import * as BUS_CONFIG from '../../constants/mac';
+import * as luxon from 'luxon';
 
 class Overview extends Component {
   constructor(props) {
     super(props);
     this.state = {
       uid: '',
-      food: 0,
-      temperature: 0,
-      water: 0,
     }
   }
 
@@ -64,11 +63,31 @@ class Overview extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.data_in(this.props.espid).limitToLast(1).on('value', snapshot => {
+    // I suppose to get data from here
+    console.log(`house/${this.props.espid}/data_in`);
+
+    /*
+    this.props.firebase.data_in(this.props.espid).limitToLast(BUS_CONFIG.SUPERFICIAL_MAX_NUMBER_BUX_IN_A_DAY).on('value', snapshot => {
+      console.log("snapshot = " + snapshot);
+      console.log("snapshot obj = " + JSON.stringify(snapshot));
       const data = snapshot.val();
+      //TO DO: handle the case that data does not exist on database
+
+      console.log("data = " + data);
+      console.log("data obj = " + JSON.stringify(data));
       const key = Object.keys(data)[0];
       this.setState({uid: key, ...data[key]});
     })
+    */
+
+    const start = luxon.DateTime.local().startOf('day').toMillis();
+    const end = luxon.DateTime.local().endOf('day').toMillis();
+
+    this.props.firebase.data_in(this.props.espid).orderByKey().startAt(start.toString()).endAt(end.toString()).once('value', snapshot => {
+      const data = snapshot.val();
+      console.log("data = " + JSON.stringify(data));
+    })
+
   }
 
   componentWillUnmount() {
