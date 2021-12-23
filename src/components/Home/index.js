@@ -43,6 +43,7 @@ class HomePage extends Component {
                   {house && <Overview espid={house}/>}
                 </Row>
               </Tab.Pane>
+              {/*
               <Tab.Pane eventKey="second">
                 <Row className="p-4">
                   <h2 className="gradient-2">Data table</h2>
@@ -65,6 +66,7 @@ class HomePage extends Component {
                   </Carousel.Item>
                 </Carousel>
               </Tab.Pane>
+              */}
           </Tab.Content>
         </Tab.Container>
       </Container>

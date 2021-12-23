@@ -9,50 +9,36 @@ class Overview extends Component {
     super(props);
     this.state = {
       uid: '',
+      number_of_bus_day: 0,
+      device_connected: false
     }
   }
 
   render() {
-    const {food, temperature, water} = this.state;
+    const {number_of_bus_day, device_connected} = this.state;
     return(
       <Container>
         <Row className="justify-content-left p-4">
           <Col lg={4} className="text-center">
             <Card>
-              {temperature > 30 ?
-                <Card.Img src={process.env.PUBLIC_URL + "/thesun.png"} className="shadow-lg"/> :
-                <Card.Img src={process.env.PUBLIC_URL + "/cloud.jpeg"} className="shadow-lg"/>}
+              <Card.Img src={process.env.PUBLIC_URL + "/bus_count.jpg"} className="shadow-lg"/>
               <Card.Body>
-                <Card.Title className="temperature">Temperature</Card.Title>
+                <Card.Title className="bus_number">Number of bus</Card.Title>
                 <Card.Text className="p-4">
-                  <span>This is the temperature of the room<br/></span>
-                  <span className={temperature > 30 ? "hot": "cold"}>{temperature}°C</span>
+                  <span>Number of bus in one day: </span>
+                  <span>{number_of_bus_day}</span>
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col lg={4} className="text-center">
             <Card>
-              {water ? <Card.Img src={process.env.PUBLIC_URL + "/water.png"} className="shadow-lg"/> :
-              <Card.Img src={process.env.PUBLIC_URL + "/thirsty.jpeg"} className="shadow-lg"/>}
+              <Card.Img src={process.env.PUBLIC_URL + "/thirsty.jpeg"} className="shadow-lg"/>
               <Card.Body>
-                <Card.Title className="water">Water</Card.Title>
+                <Card.Title className="device_connected">Connected Device</Card.Title>
                 <Card.Text className="p-4">
-                  <span>This is the amount of water<br/></span>
-                  <span className={water ? "cold": "hot"}>{water}</span>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col lg={4} className="text-center">
-            <Card>
-              {food ? <Card.Img src={process.env.PUBLIC_URL + "/full.png"} className="shadow-lg"/> :
-              <Card.Img src={process.env.PUBLIC_URL + "/hungry.png"} className="shadow-lg"/>}
-              <Card.Body>
-                <Card.Title className="food">Food</Card.Title>
-                <Card.Text className="p-4">
-                  <span>This is the amount of food<br/></span>
-                  <span className={food ? "cold": "hot"}>{food}</span>
+                  <span>Is device connected? </span>
+                  <span>{device_connected.toString()}</span>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -65,11 +51,31 @@ class Overview extends Component {
   componentDidMount() {
     const start = luxon.DateTime.local().startOf('day').toMillis();
     const end = luxon.DateTime.local().endOf('day').toMillis();
+    let lastReport;
 
     this.props.firebase.data_in(this.props.espid).orderByKey().startAt(start.toString()).endAt(end.toString()).once('value', snapshot => {
       const data = snapshot.val();
+      if(!data) return;
+
+      lastReport = luxon.DateTime.now().toMillis();
+
       console.log("data = " + JSON.stringify(data));
+      //display total number of bus in one day
+      this.setState({number_of_bus_day : Object.keys(data).length()});
     })
+
+    setInterval(() => {
+      if(!lastReport){
+        this.setState({device_connected : false});
+        return;
+      }
+
+      if(luxon.DateTime.now().toMillis() - lastReport > 10*60*1000){
+        this.setState({device_connected : false});
+      }else{
+        this.setState({device_connected : true});
+      }
+    }, 10*60*1000);
 
   }
 
