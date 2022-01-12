@@ -61,7 +61,7 @@ class NavigationAuth extends Component {
             <Dropdown>
               <Dropdown.Toggle>{this.props.username}</Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href={ROUTES.ACCOUNT}>Account</Dropdown.Item>
+                <Dropdown.Item href={ROUTES.ACCOUNT} className="text-center">Account</Dropdown.Item>
                 <Dropdown.Item><SignOutLink /></Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

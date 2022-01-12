@@ -27,9 +27,6 @@ class AccountPage extends Component {
               <ListGroup.Item as="li">
                 Email
               </ListGroup.Item>
-              <ListGroup.Item as="li">
-                Esp-32
-              </ListGroup.Item>
             </ListGroup>
           </Col>
           <Col lg={3}>
@@ -39,9 +36,6 @@ class AccountPage extends Component {
               </ListGroup.Item>
               <ListGroup.Item as="li">
                 {this.props.authUser.email}
-              </ListGroup.Item>
-              <ListGroup.Item as="li">
-                {this.state.house}
               </ListGroup.Item>
             </ListGroup>
           </Col>
