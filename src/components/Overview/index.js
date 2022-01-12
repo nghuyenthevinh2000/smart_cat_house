@@ -18,7 +18,7 @@ class Overview extends Component {
     const {number_of_bus_day, device_connected} = this.state;
     return(
       <Container>
-        <Row className="justify-content-left p-4">
+        <Row className="justify-content-evenly p-4">
           <Col lg={4} className="text-center">
             <Card>
               <Card.Img src={process.env.PUBLIC_URL + "/bus_count.jpg"} className="shadow-lg"/>

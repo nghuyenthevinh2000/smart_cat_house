@@ -24,7 +24,7 @@ class HomePage extends Component {
     const {display, house} = this.state;
     return(
       <Container>
-        <Tab.Container defaultActiveKey="first">
+        <Tab.Container defaultActiveKey="second">
           <Nav variant="tabs">
             <Nav.Item>
               <Nav.Link eventKey="first">Overview</Nav.Link>
@@ -43,14 +43,15 @@ class HomePage extends Component {
                   {house && <Overview espid={house}/>}
                 </Row>
               </Tab.Pane>
-              {/*
+
               <Tab.Pane eventKey="second">
                 <Row className="p-4">
                   <h2 className="gradient-2">Data table</h2>
                   {house && <DataPage espid={house}/>}
                 </Row>
               </Tab.Pane>
-              <Tab.Pane eventKey="fouth">
+
+            {/*  <Tab.Pane eventKey="fouth">
                 <Carousel className="p-4">
                   <Carousel.Item>
                     <h2 className="temperature">Temperature</h2>
@@ -65,8 +66,8 @@ class HomePage extends Component {
                     {house && <FoodStatistic espid={house}/>}
                   </Carousel.Item>
                 </Carousel>
-              </Tab.Pane>
-              */}
+              </Tab.Pane>*/}
+
           </Tab.Content>
         </Tab.Container>
       </Container>

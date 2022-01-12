@@ -40,46 +40,34 @@ class NavigationAuth extends Component {
   render() {
     return (
       <Container fluid="lg">
-        <Navbar variant="light">
-          <Navbar.Brand href={ROUTES.HOME} className="text-embers-4">
-            Bus Monitor
-          </Navbar.Brand>
-          <Container>
-            <Row className="justify-content-end">
-              <Col lg = {2}>
-                <Dropdown as={NavItem} onSelect={this.props.onBusSelect}>
-                  <Dropdown.Toggle as={NavLink}>{this.props.bus}</Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {this.props.station.map((station) => (
-                      <Nav.Link eventKey={station} href={ROUTES.HOME}>{station}</Nav.Link>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Col>
-              <Col lg={1}>
-                <Nav.Link href={ROUTES.INFO}>Info</Nav.Link>
-              </Col>
-              <Col lg={2}>
-                <Dropdown as={NavItem}>
-                  <Dropdown.Toggle as={NavLink}>{this.props.username}</Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <NavLink href={ROUTES.ACCOUNT}>Account</NavLink>
-                    <SignOutLink />
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Col>
-            </Row>
-          </Container>
-        </Navbar>
+       <Row className="m-4">
+          <Col lg={2} className="d-flex align-items-center">
+            <a href={ROUTES.HOME} className="text-embers-4 fs-2 fw-bold">Bus Monitor</a>
+          </Col>
+          <Col lg={1} className="ms-auto d-flex align-items-center">
+            <Dropdown onSelect={this.props.onBusSelect}>
+              <Dropdown.Toggle >{this.props.bus}</Dropdown.Toggle>
+              <Dropdown.Menu>
+                {this.props.station.map((station, index) => (
+                  <Dropdown.Item key={index} href={ROUTES.HOME}>{station}</Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+          <Col lg={1} className="d-flex align-items-center justify-content-center">
+            <a href={ROUTES.INFO}>Info</a>
+          </Col>
+          <Col lg={1} className="d-flex align-items-center">
+            <Dropdown>
+              <Dropdown.Toggle>{this.props.username}</Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href={ROUTES.ACCOUNT}>Account</Dropdown.Item>
+                <Dropdown.Item><SignOutLink /></Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+        </Row>
         <hr />
-        <style jsx>{`
-          .container .row {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          }
-        `}</style>
       </Container>
     );
   }
@@ -88,36 +76,24 @@ class NavigationAuth extends Component {
 
 const NavigationNonAuth = () =>
   <Container fluid="lg">
-    <Navbar variant="light">
-      <Navbar.Brand href={ROUTES.HOME} className="text-embers-4">
-        Bus Monitor
-      </Navbar.Brand>
-      <Container>
-        <Row className="justify-content-end">
-          <Col lg={1}>
-            <Nav.Link href={ROUTES.INFO}>Info</Nav.Link>
-          </Col>
-          <Col lg={2}>
-            <Dropdown as={NavItem}>
-              <Dropdown.Toggle as={NavLink}>Account</Dropdown.Toggle>
-              <Dropdown.Menu>
-                <NavLink href={ROUTES.SIGN_IN}>Sign In</NavLink>
-                <NavLink href={ROUTES.SIGN_UP}>Sign Up</NavLink>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-        </Row>
-      </Container>
-    </Navbar>
+    <Row className="m-4">
+      <Col lg={2} className="d-flex align-items-center">
+        <a href={ROUTES.HOME} className="text-embers-4 fs-2 fw-bold">Bus Monitor</a>
+      </Col>
+      <Col lg={1} className="ms-auto d-flex align-items-center">
+        <a href={ROUTES.INFO}>Info</a>
+      </Col>
+      <Col lg={1} className="d-flex align-items-center">
+        <Dropdown>
+          <Dropdown.Toggle id="dropdown-basic">Account</Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href={ROUTES.SIGN_IN} className="text-embers-4">Sign In</Dropdown.Item>
+            <Dropdown.Item href={ROUTES.SIGN_UP} className="text-embers-4">Sign Up</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Col>
+    </Row>
     <hr />
-    <style jsx>{`
-      .container .row {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-    `}</style>
   </Container>
 
 export default Navigation;
