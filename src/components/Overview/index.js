@@ -80,6 +80,10 @@ class Overview extends Component {
 
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps == this.props
+  }
+
   componentWillUnmount() {
     this.props.firebase.data_in(this.props.espid).off();
   }
