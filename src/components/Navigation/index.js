@@ -20,9 +20,9 @@ class Navigation extends Component {
     this.onBusSelect = this.onBusSelect.bind(this);
   }
 
-  onBusSelect(eventKey, event){
+  onBusSelect(event){
     // register chosen bus
-    cookies.set('bus', eventKey, { path: '/'});
+    cookies.set('bus', event.target.text, { path: '/'});
   }
 
   render() {
@@ -37,19 +37,20 @@ class Navigation extends Component {
 
 
 class NavigationAuth extends Component {
+
   render() {
     return (
       <Container fluid="lg">
        <Row className="m-4">
-          <Col lg={2} className="d-flex align-items-center">
+          <Col lg={4} className="d-flex align-items-center">
             <a href={ROUTES.HOME} className="text-embers-4 fs-2 fw-bold">Bus Monitor</a>
           </Col>
-          <Col lg={1} className="ms-auto d-flex align-items-center">
-            <Dropdown onSelect={this.props.onBusSelect}>
+          <Col lg={1} className="ms-auto d-flex align-items-center justify-content-center">
+            <Dropdown>
               <Dropdown.Toggle >{this.props.bus}</Dropdown.Toggle>
               <Dropdown.Menu>
                 {this.props.station.map((station, index) => (
-                  <Dropdown.Item key={index} href={ROUTES.HOME}>{station}</Dropdown.Item>
+                  <Dropdown.Item key={index} onClick={this.props.onBusSelect}>{station}</Dropdown.Item>
                 ))}
               </Dropdown.Menu>
             </Dropdown>
@@ -57,12 +58,12 @@ class NavigationAuth extends Component {
           <Col lg={1} className="d-flex align-items-center justify-content-center">
             <a href={ROUTES.INFO}>Info</a>
           </Col>
-          <Col lg={1} className="d-flex align-items-center">
+          <Col lg={1} className="d-flex align-items-center justify-content-center">
             <Dropdown>
               <Dropdown.Toggle>{this.props.username}</Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item href={ROUTES.ACCOUNT} className="text-center">Account</Dropdown.Item>
-                <Dropdown.Item><SignOutLink /></Dropdown.Item>
+                <SignOutLink />
               </Dropdown.Menu>
             </Dropdown>
           </Col>

@@ -3,28 +3,23 @@ import {withAuthorization} from '../Session';
 import {withFirebase} from '../Firebase';
 import DataPage from '../Data';
 import Overview from '../Overview';
-import TemperatureStatistic from '../TemperatureStatistic';
-import WaterStatistic from '../WaterStatistic';
-import FoodStatistic from '../FoodStatistic';
+import BusStatistic from '../BusStatistic';
 import {Container, Row, Col, Button, Tab, Nav, Carousel} from 'react-bootstrap';
 import hash from 'object-hash';
 import * as BUS_CONFIG from '../../constants/mac';
 
+
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      display: null,
-      house: null,
-    }
   }
 
   render() {
-    const {display, house} = this.state;
+    const house = BUS_CONFIG.MAC[this.props.bus];
     return(
       <Container>
-        <Tab.Container defaultActiveKey="second">
+        <Tab.Container defaultActiveKey="third">
           <Nav variant="tabs">
             <Nav.Item>
               <Nav.Link eventKey="first">Overview</Nav.Link>
@@ -33,7 +28,7 @@ class HomePage extends Component {
               <Nav.Link eventKey="second">Data table</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="fouth">Statistic</Nav.Link>
+              <Nav.Link eventKey="third">Statistic</Nav.Link>
             </Nav.Item>
           </Nav>
            <Tab.Content>
@@ -51,35 +46,17 @@ class HomePage extends Component {
                 </Row>
               </Tab.Pane>
 
-            {/*  <Tab.Pane eventKey="fouth">
-                <Carousel className="p-4">
-                  <Carousel.Item>
-                    <h2 className="temperature">Temperature</h2>
-                    {house && <TemperatureStatistic espid={house}/>}
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <h2 className="water">Water</h2>
-                    {house && <WaterStatistic espid={house}/>}
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <h2 className="food">Food</h2>
-                    {house && <FoodStatistic espid={house}/>}
-                  </Carousel.Item>
-                </Carousel>
-              </Tab.Pane>*/}
+              <Tab.Pane eventKey="third">
+                <Row className="p-4">
+                  <h2 className="gradient-3">Number of bus every 30 minutes</h2>
+                  {house && <BusStatistic espid={house}/>}
+                </Row>
+              </Tab.Pane>
 
           </Tab.Content>
         </Tab.Container>
       </Container>
     );
-  }
-
-  componentDidMount() {
-    const userId = hash(this.props.authUser.email);
-    this.props.firebase.user(userId).once('value').then(snapshot => {
-      const value = snapshot.val();
-      this.setState({house : BUS_CONFIG.MAC[this.props.bus]});
-    })
   }
 
 }

@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   password1: '',
   password2: '',
   error: null,
+  message: null,
 }
 
 class PasswordChangePage extends Component {
@@ -19,11 +20,18 @@ class PasswordChangePage extends Component {
   }
 
   onSubmit = (event) => {
-    const {password1} = this.state;
-    this.props.firebase.doPasswordUpdate(this.props.authUser, password1);
-    this.setState({...INITIAL_STATE});
-
     event.preventDefault();
+    const {password1, password2} = this.state;
+    if (password1 !== password2) {
+      this.setState({...INITIAL_STATE});
+      this.setState({error: 'Confirm password is wrong'})
+    }
+    else {
+      this.props.firebase.doPasswordUpdate(this.props.authUser, password1);
+      this.setState({...INITIAL_STATE});
+      this.setState({message: 'You change password successful'})
+    }
+
 
   }
 
@@ -32,7 +40,7 @@ class PasswordChangePage extends Component {
   }
 
   render() {
-    const {password1, password2, error} = this.state;
+    const {password1, password2, error, message} = this.state;
     const isInvalid = password1 === '' || password2 === '';
     return (
       <Container className="p-4">
@@ -46,7 +54,8 @@ class PasswordChangePage extends Component {
               <Form.Group className="p-2">
                 <Form.Control name="password2" type="password" onChange={this.onChange} placeholder="Confirm Password"/>
               </Form.Group>
-              {error && <p className="alert">{error.message}</p>}
+              {error && <p className="alert m-2">{error}</p>}
+              {message && <p className="alert m-2">{message}</p>}
               <p className="text-center">
                 <Button className="text-white button-gradient" type="submit"  size="lg" block="true" disabled={isInvalid}>
                   Change Password</Button>
