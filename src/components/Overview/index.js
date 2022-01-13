@@ -53,15 +53,16 @@ class Overview extends Component {
     const end = luxon.DateTime.local().endOf('day').toMillis();
     let lastReport;
 
-    this.props.firebase.data_in(this.props.espid).orderByKey().startAt(start.toString()).endAt(end.toString()).once('value', snapshot => {
+    this.props.firebase.data_in(this.props.espid).once('value', snapshot => {
+    //this.props.firebase.data_in(this.props.espid).orderByKey().startAt(start.toString()).endAt(end.toString()).once('value', snapshot => {
       const data = snapshot.val();
       if(!data) return;
 
       lastReport = luxon.DateTime.now().toMillis();
 
-      console.log("data = " + JSON.stringify(data));
-      //display total number of bus in one day
-      this.setState({number_of_bus_day : Object.keys(data).length()});
+      // console.log("data = " + JSON.stringify(data));
+      // display total number of bus in one day
+      this.setState({number_of_bus_day : Object.keys(data).length});
     })
 
     setInterval(() => {
