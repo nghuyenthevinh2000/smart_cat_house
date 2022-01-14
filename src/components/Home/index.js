@@ -19,7 +19,7 @@ class HomePage extends Component {
     const house = BUS_CONFIG.MAC[this.props.bus];
     return(
       <Container>
-        <Tab.Container defaultActiveKey="third">
+        <Tab.Container defaultActiveKey="first">
           <Nav variant="tabs">
             <Nav.Item>
               <Nav.Link eventKey="first">Overview</Nav.Link>
