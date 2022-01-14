@@ -11,7 +11,7 @@ const DataPage = (props) => {
     const start = luxon.DateTime.local().startOf('day').toMillis();
     const end = luxon.DateTime.local().endOf('day').toMillis();
     // props.firebase.data_in(props.espid).orderByKey().startAt(start.toString()).endAt(end.toString()).on('value' , snapshot => {
-    props.firebase.data_in(props.espid).once('value', snapshot => {
+    props.firebase.data_in(props.espid).on('value', snapshot => {
       let data = snapshot.val()
       data = data ? data : []
       setBusData(Object.keys(data).map(key => {

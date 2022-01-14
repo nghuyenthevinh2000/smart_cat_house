@@ -95,7 +95,7 @@ const Overview = (props) => {
   useEffect(() => {
     const start = luxon.DateTime.local().startOf('day').toMillis();
     const end = luxon.DateTime.local().endOf('day').toMillis();
-    let lastReport;
+    let lastReport = 0;
 
     props.firebase.data_in(props.espid).orderByKey().on('value', snapshot => {
     // props.firebase.data_in(props.espid).orderByKey().startAt(start.toString()).endAt(end.toString()).on('value',snapshot => {
@@ -107,20 +107,14 @@ const Overview = (props) => {
       // console.log("data = " + JSON.stringify(data));
       //display total number of bus in one day
       setNumberOfBus(Object.keys(data).length)
-
-      setInterval(() => {
-        if(!lastReport){
-          setConnected(false)
-          return;
-        }
-
-        if(luxon.DateTime.now().toMillis() - lastReport > 10*60*1000){
-          setConnected(false)
-        }else{
-          setConnected(true)
-        }
-      }, 10*60*1000);
+      setConnected(true)
     })
+
+    setInterval(() => {
+      if(luxon.DateTime.now().toMillis() - lastReport > 60*1000){
+        setConnected(false)
+      }
+    }, 60*1000);
 
     return () => {
        props.firebase.data_in(props.espid).off();

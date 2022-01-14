@@ -5,7 +5,7 @@
 
 export const MAC = {
     'Cau Giay' : "02-42-FF-DC-68-B6",
-    'Giap Bat' : "90-32-4B-76-AB-01",
+    'Giap Bat' : "02-42-42-44-7F-79",
 };
 
 export const BUS = {
